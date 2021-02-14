@@ -5,7 +5,10 @@ local DOWN = "bottom"
 local FRONT = "front"
 local BACK = "back"
 
-if rednet.isOpen(BACK) then
-    print("Show stuff for mobile computer")
-else
-    rednet.open(BACK)
+local modemDirection = BACK
+local localId = os.getComputerID()
+local padId = 1
+
+if not localId == padId then
+    rednet.send(padId, "Sending to pad")
+end
