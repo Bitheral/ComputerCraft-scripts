@@ -9,6 +9,18 @@ local modemDirection = BACK
 local localId = os.getComputerID()
 local padId = 1
 
-if not localId == padId then
-    rednet.send(padId, "Sending to pad")
+if localId == padId then
+    modemDirection = TOP
+else
+    modemDirection = BACK
+end
+
+if not rednet.isOpen(modemDirection) then
+    rednet.open(modemDirection)
+end
+
+if localId == padId then
+    rednet.receive()
+else
+    rednet.send(padId, "Test data")
 end
